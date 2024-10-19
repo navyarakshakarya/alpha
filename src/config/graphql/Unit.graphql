@@ -1,0 +1,49 @@
+# Unit Type Definition
+type Unit {
+  id: ID!
+  name: String!
+  abbreviation: String!
+  description: String
+  baseUnit: Unit
+  conversionFactor: Float
+  isActive: Boolean!
+  deletedAt: Date
+  createdAt: Date
+  updatedAt: Date
+}
+
+# Input type for creating a new unit
+input CreateUnitInput {
+  name: String!
+  abbreviation: String!
+  baseUnitId: String
+  conversionFactor: Float
+}
+
+# Input type for updating a unit
+input UpdateUnitInput {
+  name: String
+  abbreviation: String
+  baseUnitId: String
+  conversionFactor: Float
+}
+
+# Filters for querying units
+input UnitFilters {
+  name: String!
+  abbreviation: String
+  baseUnitId: String
+}
+
+# Queries
+type Query {
+  getUnits(filters: UnitFilters): [Unit!]!
+  getUnit(id: String!): Unit
+}
+
+# Mutations for creating, updating, and deleting units
+type Mutation {
+  createUnit(data: CreateUnitInput!): Unit!
+  updateUnit(id: String!, input: UpdateUnitInput!): Unit!
+  deleteUnit(id: String!): Unit!
+}

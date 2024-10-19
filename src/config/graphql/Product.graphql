@@ -1,0 +1,80 @@
+scalar Date
+
+# Product Type Definition
+type Product {
+  id: ID!
+  name: String!
+  productCode: String!
+  description: String
+  category: Category!
+  unit: Unit!
+  brands: [String]
+  variants: [String]
+  barcode: String
+  price: Float
+  discount: Float
+  taxRate: Float
+  isActive: Boolean!
+  deletedAt: Date
+  createdAt: Date
+  updatedAt: Date
+}
+
+# Category Type (used for Product)
+type Category {
+  id: ID!
+  name: String!
+}
+
+# Unit Type (used for Product)
+type Unit {
+  id: ID!
+  name: String!
+}
+
+# Input type for product creation
+input CreateProductInput {
+  name: String!
+  categoryId: String!
+  unitId: String!
+  description: String
+  price: Float
+  brand: String
+  variants: [String]
+  images: [String]
+}
+
+# Input type for updating a product
+input UpdateProductInput {
+  name: String
+  description: String
+  price: Float
+  brand: String
+  categoryId: String
+  images: [String]
+}
+
+# Queries
+type Query {
+  getProducts(filters: ProductFilters): [Product!]!
+  getProductById(id: String!): Product
+}
+
+# Filters for querying products
+input ProductFilters {
+  name: String
+  categoryId: String
+  brand: String
+}
+
+# Mutations for creating, updating, and deleting products
+type Mutation {
+  createProduct(input: CreateProductInput!): Product!
+  updateProduct(id: String!, input: UpdateProductInput!): Product!
+  deleteProduct(id: String!): Product!
+}
+
+# Subscription (you can define a more advanced subscription logic)
+type Subscription {
+  _: String
+}

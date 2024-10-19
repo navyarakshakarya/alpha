@@ -1,0 +1,48 @@
+# Category Type Definition
+type Category {
+  id: ID!
+  name: String!
+  categoryCode: String!
+  description: String
+  parentCategory: String
+  isActive: Boolean!
+  deletedAt: Date
+  createdAt: Date
+  updatedAt: Date
+}
+
+# Queries to fetch categories
+type Query {
+  getCategories(filters: CategoryFilters): [Category!]!
+  getCategory(id: String!): Category
+}
+
+# Filters used for querying categories
+input CategoryFilters {
+  name: String
+  parentCategory: String
+  categoryCode: String
+}
+
+# Mutations for creating, updating, and deleting categories
+type Mutation {
+  createCategory(data: CreateCategoryInput!): Category!
+  updateCategory(id: String!, input: UpdateCategoryInput!): Category!
+  deleteCategory(id: String!): Category!
+}
+
+# Input type for creating a category
+input CreateCategoryInput {
+  name: String!
+  categoryCode: String!
+  description: String
+  parentCategory: String
+}
+
+# Input type for updating a category
+input UpdateCategoryInput {
+  name: String
+  categoryCode: String
+  description: String
+  parentCategory: String
+}
